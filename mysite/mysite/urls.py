@@ -1,7 +1,7 @@
 # myapi/urls.py
 from django.urls import include, path
 from rest_framework import routers
-from ..myapi import views
+from mysite.myapi import views
 
 router = routers.DefaultRouter()
 router.register(r'heroes', views.HeroViewSet)
