@@ -5,5 +5,5 @@ WORKDIR /api-server
 ADD . /api-server/
 RUN pip install -r requirements.txt
 
-EXPOSE 5000
+EXPOSE 30000
 CMD ["python", "/api-server/api_server.py"]
