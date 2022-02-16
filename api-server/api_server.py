@@ -16,12 +16,12 @@ def calc_sum():
     if 'num1' in request.args:
         num1 = int(request.args['num1'])
     else:
-        return "<h1>Error: No num1 field provided. Please specify num1.</h1>"
+        return "Error: No num1 field provided. Please specify num1"
 
     if 'num2' in request.args:
         num2 = int(request.args['num2'])
     else:
-        return "<h1>Error: No num2 field provided. Please specify num2.</h1>"
+        return "Error: No num2 field provided. Please specify num2"
 
     result_sum = num1 + num2
 

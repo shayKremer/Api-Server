@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-server
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      release: prometheus
+  template:
+    metadata:
+      labels:
+        release: prometheus
+    spec:
+      containers:
+      - name: api-server-site
+        image: getting-started
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-server-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    bb: web
+  ports:
+  - port: 5000
+    targetPort: 5000
+    nodePort: 50001
