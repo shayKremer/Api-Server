@@ -34,16 +34,33 @@ def calc():
         return "Error: No operator field provided. Please specify operator"
 
     if operator == "sum":
-        result_sum = num1 + num2
+        result_calc = num1 + num2
     elif operator == "product":
-        result_sum = num1 * num2
+        result_calc = num1 * num2
     else:
         return "Error: No operator isn't product or sum"
 
-    mydict = {"calc": result_sum}
-    x = mycol.insert_one(mydict)
-    print(x.inserted_id)
-    return jsonify(result_sum)
+    mydict = {"calc": result_calc}
+    fnd = 0
+    for document in mycol.find(mydict):
+        fnd = document['calc']
+    if fnd != result_calc:
+        mycol.insert_one(mydict)
+
+    return jsonify(result_calc)
+
+
+@app.route('/list', methods=['POST'])
+def list_calc():
+    if 'del' in request.args:
+        del_result = int(request.args['del'])
+        mycol.delete_one({"calc": del_result})
+        return "deleted " + str(del_result)
+    else:
+        col_list = []
+        for document in mycol.find():
+            col_list.append(document['calc'])
+        return jsonify(col_list)
 
 
 app.run()
